@@ -9,3 +9,7 @@ target/
 hs_err_pid*
 out/
 .DS_Store
+.vscode
+.classpath
+.settings
+.project
