@@ -6,23 +6,43 @@ import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import java.util.logging.Logger;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+
+@Path("v1")
 @ApplicationScoped
-@Path("properties")
+@Produces(APPLICATION_JSON)
 public class SystemPropertiesResource {
 
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public JsonObject getProperties() {
-    JsonObjectBuilder builder = Json.createObjectBuilder();
+  private static final Logger log = Logger.getLogger(SystemPropertiesResource.class.getName());
 
-    System.getProperties()
-          .entrySet()
-          .stream()
-          .forEach(entry -> builder.add((String) entry.getKey(),
-                                        (String) entry.getValue()));
+  @GET
+  @Path("")
+  public JsonObject index() {
+    log.info("index");
+    JsonObjectBuilder builder = Json.createObjectBuilder();
+    System.getProperties().forEach((key, value) -> builder.add((String) key, (String) value));
+    return builder.build();
+  }
+
+  @GET
+  @Path("props")
+  public JsonObject props() {
+    log.info("props");
+    JsonObjectBuilder builder = Json.createObjectBuilder();
+    System.getProperties().forEach((key, value) -> builder.add((String) key, (String) value));
+    return builder.build();
+  }
+
+  @GET
+  @Path("{path}")
+  public JsonObject path(@PathParam("path") final String path) {
+    log.info("path: " + path);
+    JsonObjectBuilder builder = Json.createObjectBuilder();
+    System.getProperties().forEach((key, value) -> builder.add((String) key, (String) value));
     return builder.build();
   }
 }
