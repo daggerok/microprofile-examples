@@ -5,22 +5,18 @@ MicroProfile examples
 
 ### maven
 
-<!--
-
 #### zip
 
 _build, run and test_
 
 ```bash
-./mvnw -f openliberty-maven-zip/pom.xml package liberty:start liberty:deploy liberty:display-url
+./mvnw -f openliberty-maven-zip/pom.xml package liberty:start
 
 http :9080/app1/
 http :9080/app1/v1/properties
 
 ./mvnw -f openliberty-maven-zip/pom.xml liberty:stop liberty:clean-server
 ```
-
--->
 
 #### zip (docker)
 
