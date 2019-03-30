@@ -3,9 +3,26 @@ MicroProfile examples
 
 ## OpenLiberty
 
-### maven / docker
+### maven
+
+<!--
 
 #### zip
+
+_build, run and test_
+
+```bash
+./mvnw -f openliberty-maven-zip/pom.xml package liberty:start liberty:deploy liberty:display-url
+
+http :9080/app1/
+http :9080/app1/v1/properties
+
+./mvnw -f openliberty-maven-zip/pom.xml liberty:stop liberty:clean-server
+```
+
+-->
+
+#### zip (docker)
 
 _build_
 
@@ -47,4 +64,20 @@ _test_
 ```bash
 http :9080/app2/
 http :9080/app2/v1/properties
+```
+
+### gradle
+
+#### zip
+
+_build, run and test_
+
+```bash
+./gradlew -b openliberty-gradle-jar/build.gradle libertyStart
+
+http :9080/app3/
+http :9080/app3/v1/
+http :9080/app3/v1/hoy
+
+./gradlew -b openliberty-gradle-jar/build.gradle libertyStop
 ```

@@ -16,6 +16,17 @@ before_script:
   - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
   - stop_any 80 8001 8002 8080 5432 9080
 script:
+#  - ./mvnw -f openliberty-maven-zip/pom.xml package
+#  - ./mvnw -f openliberty-maven-zip/pom.xml liberty:start &
+#  - wait_for 9080
+#  - sleep 5s
+#  - http :9080/app1/
+#  - http :9080/app1/api/v1/ | jq '.'
+#  - http :9080/app1/api/v1/props | jq '.'
+#  - http :9080/app1/api/v1/properties | jq '.'
+#  - ./mvnw -f openliberty-maven-zip/pom.xml liberty:stop liberty:clean-server
+#  - stop_any 9080
+#  #
   - ./mvnw -f openliberty-maven-zip/pom.xml clean package
   - docker build -t openliberty-maven-zip -f openliberty-maven-zip/Dockerfile openliberty-maven-zip
   - docker run -d --name app1 --rm -p 9080:9080 -p 9443:9443 openliberty-maven-zip
@@ -35,9 +46,18 @@ script:
   - http :9080/app2/api/v1/props | jq '.'
   - http :9080/app2/api/v1/properties | jq '.'
   - stop_any 9080
+  #
+  - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStart
+  - wait_for 9080
+  - sleep 5s
+  - http :9080/app3/
+  - http :9080/app3/api/v1/ | jq '.'
+  - http :9080/app3/api/v1/hello | jq '.'
+  - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStop
+  - stop_any 9080
 cache:
-  packages: true
   pip: true
+  packages: true
   directories:
     - ~/.docker
     - ~/.m2
