@@ -1,6 +1,10 @@
 # microprofile-examples [![Build Status](https://travis-ci.org/daggerok/microprofile-examples.svg?branch=master)](https://travis-ci.org/daggerok/microprofile-examples)
 MicroProfile examples
 
+## Micro Profiles
+
+see pom.xml in [here](./maven-profiles)
+
 ## OpenLiberty
 
 ### maven
