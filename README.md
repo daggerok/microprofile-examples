@@ -90,3 +90,4 @@ other JakartaEE / MicroProfile repositories:
 
 * [GitHub: daggerok/java-mp-smallrye-example](https://github.com/daggerok/java-mp-smallrye-example)
 * [Github: daggerok/java-mp-openliberty-gradle-example](https://github.com/daggerok/java-mp-openliberty-gradle-example)
+* [Github: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
