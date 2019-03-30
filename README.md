@@ -88,6 +88,9 @@ links:
 
 other JakartaEE / MicroProfile repositories:
 
+* [GitHub: daggerok/java-mp-tomtribe-tomee-maven-example](https://github.com/daggerok/java-mp-tomtribe-tomee-maven-example)
 * [GitHub: daggerok/java-mp-smallrye-example](https://github.com/daggerok/java-mp-smallrye-example)
 * [GitHub: daggerok/java-mp-openliberty-gradle-example](https://github.com/daggerok/java-mp-openliberty-gradle-example)
+* [GitHub: daggerok/meecrowave-example](https://github.com/daggerok/meecrowave-example)
 * [GitHub: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
+
