@@ -85,3 +85,4 @@ http :9080/app3/v1/hoy
 links:
 
 * [GitHub: eclipse/microprofile-samples](https://github.com/eclipse/microprofile-samples/blob/master/pom.xml)
+* [GitHub: daggerok/java-mp-smallrye-example](https://github.com/daggerok/java-mp-smallrye-example)
