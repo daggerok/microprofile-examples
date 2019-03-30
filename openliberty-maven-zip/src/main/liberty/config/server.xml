@@ -10,7 +10,7 @@
                   httpsPort="9443"
                   id="defaultHttpEndpoint" />
     
-    <webApplication id="app"
-                    location="app.war"
-                    name="app"/>
+    <webApplication id="app1"
+                    location="app1.war"
+                    name="app1"/>
 </server>

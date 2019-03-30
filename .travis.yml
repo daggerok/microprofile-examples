@@ -14,14 +14,21 @@ install: true
 before_script:
   - sudo pip install --upgrade httpie >/dev/null
 script:
-  - export root=$(pwd)
-  - ./mvnw -f openliberty-maven-docker/pom.xml clean package >/dev/null
-  - docker build -t openliberty-maven-docker -f openliberty-maven-docker/Dockerfile openliberty-maven-docker >/dev/null
-  - docker run -d --name app --rm -p 9080:9080 -p 9443:9443 openliberty-maven-docker
-  - sleep 10s
-  - http :9080/app/
-  - http :9080/app/v1/properties | jq '.'
-  - docker rm -f -v app
+  - ./mvnw -f openliberty-maven-zip/pom.xml clean package
+  - docker build -t openliberty-maven-zip -f openliberty-maven-zip/Dockerfile openliberty-maven-zip
+  - docker run -d --name app1 --rm -p 9080:9080 -p 9443:9443 openliberty-maven-zip
+  - sleep 15s
+  - http :9080/app1/
+  - http :9080/app1/v1/properties | jq '.'
+  - docker rm -f -v app1
+  #
+  - ./mvnw -f openliberty-maven-jar/pom.xml clean package
+  - killall -9 java
+  - java -jar openliberty-maven-jar/target/*.jar &
+  - sleep 15s
+  - http :9080/app2/
+  - http :9080/app2/v1/properties | jq '.'
+  - killall -9 java || true
 cache:
   packages: true
   pip: true

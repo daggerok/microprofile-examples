@@ -4,7 +4,7 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>prime</groupId>
-  <artifactId>app</artifactId>
+  <artifactId>app1</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
 
@@ -103,6 +103,7 @@
   </dependencies>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
     <finalName>${project.artifactId}</finalName>
     <plugins>
       <plugin>
