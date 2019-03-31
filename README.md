@@ -3,7 +3,11 @@ MicroProfile examples
 
 ## Micro Profiles
 
-see pom.xml in [here](./maven-profiles)
+see `pom.xml` in [here](./maven-profiles/)
+
+## Smallrye
+
+see `pom.xml` and `build.gradle.kts` in [here](./smallrye-jar/)
 
 ## OpenLiberty
 
