@@ -54,9 +54,20 @@ script:
   - http :9080/app3/api/v1/hello | jq '.'
   - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStop
   - stop_any 9080
+  #
+  - ./mvnw -f ./smallrye-jar/pom.xml clean package exec:java -Dexec.mainClass=com.github.daggerok.App
+  - ./mvnw -f ./smallrye-jar/pom.xml clean package
+  - java -jar ./smallrye-jar/target/app4-*.jar
+  #
+  - ./gradlew -b ./smallrye-jar/build.gradle.kts fatJar
+  - java -jar ./smallrye-jar/build/libs/*-all.jar
+  #
+  - ./gradlew -b ./smallrye-jar/build.gradle.kts installDist
+  - bash ./smallrye-jar/build/install/app4/bin/app4
 cache:
   pip: true
   packages: true
   directories:
     - ~/.docker
+    - ~/.gradle
     - ~/.m2
