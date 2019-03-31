@@ -1,12 +1,14 @@
 # Smallrye MicrpProfile
 
-## maven exec plugin
+## maven
+
+### exec plugin
 
 ```bash
 ./mvnw -f ./smallrye-jar/pom.xml clean package exec:java -Dexec.mainClass=com.github.daggerok.App
 ```
 
-### maven fatJar
+### fatJar
 
 ```bash
 ./mvnw -f ./smallrye-jar/pom.xml clean package
@@ -15,18 +17,18 @@ java -jar ./smallrye-jar/target/app4-*.jar
 
 ## gradle
 
-### application gradle plugin
-
-```bash
-./gradlew -b ./smallrye-jar/build.gradle.kts installDist
-bash ./smallrye-jar/build/install/app4/bin/app4
-```
-
-### fatJar gradle task
+### fatJar
 
 ```bash
 ./gradlew -b ./smallrye-jar/build.gradle.kts fatJar
 java -jar ./smallrye-jar/build/libs/*-all.jar
+```
+
+### application plugin
+
+```bash
+./gradlew -b ./smallrye-jar/build.gradle.kts installDist
+bash ./smallrye-jar/build/install/app4/bin/app4
 ```
 
 links:
