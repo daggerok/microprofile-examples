@@ -92,6 +92,7 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/java-mp-smallrye-example](https://github.com/daggerok/java-mp-smallrye-example)
 * [GitHub: daggerok/java-mp-openliberty-gradle-example](https://github.com/daggerok/java-mp-openliberty-gradle-example)
 * [GitHub: daggerok/meecrowave-example](https://github.com/daggerok/meecrowave-example)
+* [GitHub: daggerok/java-ee-microservices](https://github.com/daggerok/java-ee-microservices)
 * [GitHub: daggerok/thorntail-example](https://github.com/daggerok/thorntail-example)
 * [GitHub: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
 
