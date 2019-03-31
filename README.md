@@ -94,7 +94,10 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/meecrowave-example](https://github.com/daggerok/meecrowave-example)
 * [GitHub: daggerok/java-ee-microservices](https://github.com/daggerok/java-ee-microservices)
 * [GitHub: daggerok/payara-micro-gradle-plugin-build-script](https://github.com/daggerok/payara-micro-gradle-plugin-build-script)
+* [GitHub: daggerok/payara-micro-gradle-no-plugin](https://github.com/daggerok/payara-micro-gradle-no-plugin)
+* [GitHub: daggerok/payara-micro-example](https://github.com/daggerok/payara-micro-example)
 * [GitHub: daggerok/thorntail-example](https://github.com/daggerok/thorntail-example)
 * [GitHub: daggerok/wildfly-swarm-microservice](https://github.com/daggerok/wildfly-swarm-microservice)
+* [GitHub: daggerok/wildfly-swarm-jgroups-chat](https://github.com/daggerok/wildfly-swarm-jgroups-chat)
 * [GitHub: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
 
