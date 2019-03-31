@@ -94,5 +94,6 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/meecrowave-example](https://github.com/daggerok/meecrowave-example)
 * [GitHub: daggerok/java-ee-microservices](https://github.com/daggerok/java-ee-microservices)
 * [GitHub: daggerok/thorntail-example](https://github.com/daggerok/thorntail-example)
+* [GitHub: daggerok/wildfly-swarm-microservice](https://github.com/daggerok/wildfly-swarm-microservice)
 * [GitHub: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
 
