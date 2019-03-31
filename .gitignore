@@ -15,3 +15,5 @@ out/
 .settings
 .project
 build/
+test.html
+dependency-reduced-pom.xml
