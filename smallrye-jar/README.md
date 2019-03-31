@@ -15,18 +15,18 @@ java -jar ./smallrye-jar/target/app4-*.jar
 
 ## gradle
 
-### fatJar gradle task
-
-```bash
-./gradlew -b ./smallrye-jar/build.gradle.kts fatJar
-java -jar ./smallrye-jar/build/libs/*-all.jar
-```
-
 ### application gradle plugin
 
 ```bash
 ./gradlew -b ./smallrye-jar/build.gradle.kts installDist
 bash ./smallrye-jar/build/install/app4/bin/app4
+```
+
+### fatJar gradle task
+
+```bash
+./gradlew -b ./smallrye-jar/build.gradle.kts fatJar
+java -jar ./smallrye-jar/build/libs/*-all.jar
 ```
 
 links:
