@@ -3,7 +3,7 @@
 ## maven exec plugin
 
 ```bash
-mvn -f ./smallrye-jar/pom.xml clean package exec:java -Dexec.mainClass=com.github.daggerok.App
+./mvnw -f ./smallrye-jar/pom.xml clean package exec:java -Dexec.mainClass=com.github.daggerok.App
 ```
 
 ### maven fatJar
