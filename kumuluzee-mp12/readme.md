@@ -8,16 +8,18 @@ The generation of the executable jar file can be performed by issuing the follow
 
     mvn clean package
 
-This will create an executable jar file **mp12ws-swarm.jar** within the _target_ maven folder. This can be started by executing the following command
+This will create an executable jar file **mp12kee.jar** within the _target_ maven folder. This can be started by executing the following command
 
-    java -jar target/wildfly-swarm-mp12-swarm.jar
+    java -jar target/kumuluzee-mp12.jar
 
 To launch the test page, open your browser at the following URL
 
-    http :8080/
+    http :8080
     http :8080/health
-    http :8080/data/hello
     http :8080/data/config/lookup
+    http :8080/data/config/injected
+    http :8080/data/metrics
+    http :8080/data/resilience
 
 ## Specification examples
 

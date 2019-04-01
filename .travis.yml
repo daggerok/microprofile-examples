@@ -14,8 +14,19 @@ install: true
 before_script:
   - sudo pip install --upgrade httpie >/dev/null
   - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
-  - stop_any 80 8001 8002 8080 5432 9080
+  - stop_any 80 8001 8002 8080 5432 9080 8009 8007 8005
 script:
+  - ./mvnw -f ./kumuluzee-mp12/pom.xml >/dev/null
+  - java -jar ./kumuluzee-mp12/target/kumuluzee-mp12.jar &
+  - wait_for 8080
+  - http :8080
+  - http :8080/data/config/lookup
+  - http :8080/data/config/injected
+  - http :8080/data/metrics
+  - http :8080/data/resilience
+  - http :8080/health
+  - stop_any 80 8080
+  #
   - ./mvnw -f openliberty-maven-zip/pom.xml package
   - ./mvnw -f openliberty-maven-zip/pom.xml liberty:start
   - wait_for 9080
@@ -24,7 +35,7 @@ script:
   - http :9080/app1/api/v1/props | jq '.'
   - http :9080/app1/api/v1/properties | jq '.'
   - ./mvnw -f openliberty-maven-zip/pom.xml liberty:stop liberty:clean-server
-  - stop_any 9080
+  - stop_any 80 9080
   #
   - ./mvnw -f openliberty-maven-zip/pom.xml clean package
   - docker build -t openliberty-maven-zip -f openliberty-maven-zip/Dockerfile openliberty-maven-zip
@@ -35,6 +46,7 @@ script:
   - http :9080/app1/api/v1/props | jq '.'
   - http :9080/app1/api/v1/properties | jq '.'
   - docker rm -f -v app1
+  - stop_any 80
   #
   - ./mvnw -f openliberty-maven-jar/pom.xml clean package
   - java -jar openliberty-maven-jar/target/*.jar &
@@ -44,7 +56,7 @@ script:
   - http :9080/app2/api/v1/ | jq '.'
   - http :9080/app2/api/v1/props | jq '.'
   - http :9080/app2/api/v1/properties | jq '.'
-  - stop_any 9080
+  - stop_any 80 9080
   #
   - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStart
   - wait_for 9080
@@ -53,7 +65,7 @@ script:
   - http :9080/app3/api/v1/ | jq '.'
   - http :9080/app3/api/v1/hello | jq '.'
   - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStop
-  - stop_any 9080
+  - stop_any 80 9080
   #
   - ./mvnw -f ./smallrye-jar/pom.xml clean package exec:java -Dexec.mainClass=com.github.daggerok.App
   - ./mvnw -f ./smallrye-jar/pom.xml clean package
@@ -69,8 +81,11 @@ script:
   - ls -lah ./wildfly-swarm-mp12/target/ | grep jar
   #
   - ./mvnw -f ./tomtribe-mp12/pom.xml >/dev/null
+  - stop_any 80
   - docker pull openjdk:8u201-jdk-alpine3.9
   - docker run --rm -d --name app -p 8080:8080 -v $(pwd)/tomtribe-mp12/target:/tmp/app openjdk:8u201-jdk-alpine3.9 ash -c "java -jar /tmp/app/*-exec.jar"
+  - docker logs -f -t app &
+  - wait_for 8080
   - sleep 15s
   - http :8080/data/health
   - http :8080/data/openapi
@@ -79,6 +94,7 @@ script:
   - http :8080/data/hello
   - http :8080/
   - docker rm -f -v app
+  - stop_any 80
 cache:
   pip: true
   packages: true

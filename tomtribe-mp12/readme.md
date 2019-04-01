@@ -68,10 +68,3 @@ Using the OpenId Connect JWT token to pass authentication and authorization info
 
 Have a look at the **JWTClient** class which calls the protected endpoint on the server from a Java Main method.
 The **ProtectedController** contains the protected endpoint since it contains the _@RolesAllowed_ annotation on the JAX-RS endppoint method.
-
-
-
-
-
-
-
