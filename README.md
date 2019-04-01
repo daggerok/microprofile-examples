@@ -88,6 +88,7 @@ http :9080/app3/v1/hoy
 
 links:
 
+* [MicroProfile starter generator](https://start.microprofile.io/)
 * [GitHub: eclipse/microprofile-samples](https://github.com/eclipse/microprofile-samples/blob/master/pom.xml)
 * [JakartaEE tutorial](https://eclipse-ee4j.github.io/jakartaee-tutorial/)
 

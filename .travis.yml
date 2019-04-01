@@ -64,6 +64,9 @@ script:
   #
   - ./gradlew -b ./smallrye-jar/build.gradle.kts installDist
   - bash ./smallrye-jar/build/install/app4/bin/app4
+  #
+  - ./mvnw -f ./wildfly-swarm-mp12/pom.xml >/dev/null
+  - ls -lah ./wildfly-swarm-mp12/target/ | grep jar
 cache:
   pip: true
   packages: true
