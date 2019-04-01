@@ -107,4 +107,3 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/wildfly-swarm-microservice](https://github.com/daggerok/wildfly-swarm-microservice)
 * [GitHub: daggerok/wildfly-swarm-jgroups-chat](https://github.com/daggerok/wildfly-swarm-jgroups-chat)
 * [GitHub: daggerok/java-ee-examples](https://github.com/daggerok/java-ee-examples)
-

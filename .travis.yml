@@ -67,6 +67,18 @@ script:
   #
   - ./mvnw -f ./wildfly-swarm-mp12/pom.xml >/dev/null
   - ls -lah ./wildfly-swarm-mp12/target/ | grep jar
+  #
+  - ./mvnw -f ./tomtribe-mp12/pom.xml >/dev/null
+  - docker pull openjdk:8u201-jdk-alpine3.9
+  - docker run --rm -d --name app -p 8080:8080 -v $(pwd)/tomtribe-mp12/target:/tmp/app openjdk:8u201-jdk-alpine3.9 ash -c "java -jar /tmp/app/*-exec.jar"
+  - sleep 15s
+  - http :8080/data/health
+  - http :8080/data/openapi
+  - http :8080/data/petrics
+  - http :8080/data/config/lookup
+  - http :8080/data/hello
+  - http :8080/
+  - docker rm -f -v app
 cache:
   pip: true
   packages: true
