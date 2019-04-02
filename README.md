@@ -103,6 +103,7 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/payara-micro-gradle-plugin-build-script](https://github.com/daggerok/payara-micro-gradle-plugin-build-script)
 * [GitHub: daggerok/payara-micro-gradle-no-plugin](https://github.com/daggerok/payara-micro-gradle-no-plugin)
 * [GitHub: daggerok/payara-micro-example](https://github.com/daggerok/payara-micro-example)
+* [GitHub: daggerok/kumuluzee-examples](https://github.com/daggerok/kumuluzee-examples)
 * [GitHub: daggerok/thorntail-example](https://github.com/daggerok/thorntail-example)
 * [GitHub: daggerok/wildfly-swarm-microservice](https://github.com/daggerok/wildfly-swarm-microservice)
 * [GitHub: daggerok/wildfly-swarm-jgroups-chat](https://github.com/daggerok/wildfly-swarm-jgroups-chat)
