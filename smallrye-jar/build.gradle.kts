@@ -33,7 +33,7 @@ application {
 
 tasks {
   register("fatJar", Jar::class.java) {
-    archiveAppendix.set("all")
+    archiveClassifier.set("all")
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
       attributes("Main-Class" to mainClass)
