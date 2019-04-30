@@ -1,5 +1,12 @@
 # OpenLiberty MicroProfile
 
+```bash
+mvn
+java -jar target/app2.jar
+http :9080
+http :9080/api/v1/properties
+```
+
 * https://openliberty.io/guides/rest-intro.html
 
 * https://openliberty.io/guides/cdi-intro.html
