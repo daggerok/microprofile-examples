@@ -94,6 +94,7 @@ links:
 
 other JakartaEE / MicroProfile repositories:
 
+* [GitHub: daggerok/java-mp-smallrye-kafka-example](https://github.com/daggerok/java-mp-smallrye-kafka-example)
 * [GitHub: daggerok/java-mp-quarkus-example](https://github.com/daggerok/java-mp-quarkus-example)
 * [GitHub: daggerok/java-mp-tomtribe-tomee-maven-example](https://github.com/daggerok/java-mp-tomtribe-tomee-maven-example)
 * [GitHub: daggerok/java-mp-smallrye-example](https://github.com/daggerok/java-mp-smallrye-example)
