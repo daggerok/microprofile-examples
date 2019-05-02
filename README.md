@@ -112,7 +112,4 @@ other JakartaEE / MicroProfile repositories:
 
 TODO:
 
-* [KumuluzEE with Gradle 1](https://github.com/kumuluz/kumuluzee-samples/issues/14)
-* [KumuluzEE with Gradle 2](https://gist.github.com/ArtificialPB/fa629f321fd3f9d74cc77078da4b4bab)
-* [KumuluzEE with Gradle 3](https://github.com/ArtificialPB/kumuluzee-jax-rs-gradle)
 * [GitHub: lightbend - reactive kafka microprofile](https://github.com/lightbend/microprofile-reactive-messaging/blob/master/example/pom.xml)
