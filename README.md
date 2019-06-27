@@ -94,6 +94,7 @@ links:
 
 other JakartaEE / MicroProfile repositories:
 
+* [GitHub: daggerok/quarkus-reactive-pg](https://github.com/daggerok/quarkus-reactive-pg)
 * [GitHub: daggerok/java-mp-smallrye-kafka-example](https://github.com/daggerok/java-mp-smallrye-kafka-example)
 * [GitHub: daggerok/java-mp-quarkus-example](https://github.com/daggerok/java-mp-quarkus-example)
 * [GitHub: daggerok/java-mp-tomtribe-tomee-maven-example](https://github.com/daggerok/java-mp-tomtribe-tomee-maven-example)
