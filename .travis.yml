@@ -17,7 +17,7 @@ before_script:
   - stop_any 80 8001 8002 8080 5432 9080 8009 8007 8005
 jobs:
   include:
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: kumuluzee-mp12
       script:
@@ -32,7 +32,7 @@ jobs:
         - http :8080/health
         - stop_any 80 8080
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: openliberty-maven-zip
       script:
@@ -57,7 +57,7 @@ jobs:
         - docker rm -f -v app1
         - stop_any 80
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: openliberty-maven-jar
       script:
@@ -71,7 +71,7 @@ jobs:
         - http :9080/api/v1/properties | jq '.'
         - stop_any 80 9080
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: penliberty-gradle-zip
       script:
@@ -84,7 +84,7 @@ jobs:
         - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStop
         - stop_any 80 9080
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: smallrye-jar
       script:
@@ -98,14 +98,14 @@ jobs:
         - ./gradlew -b ./smallrye-jar/build.gradle.kts installDist
         - bash ./smallrye-jar/build/install/app4/bin/app4
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: wildfly-swarm-mp12
       script:
         - ./mvnw -U -f ./wildfly-swarm-mp12/pom.xml >/dev/null
         - ls -lah ./wildfly-swarm-mp12/target/ | grep jar
         #
-    - stage: test:
+    - stage: test
       jdk: openjdk8
       name: tomtribe-mp12
       script:
