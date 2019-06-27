@@ -15,8 +15,8 @@ before_script:
   - sudo pip install --upgrade httpie >/dev/null
   - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
   - stop_any 80 8001 8002 8080 5432 9080 8009 8007 8005
-include:
-  jobs:
+jobs:
+  include:
     - stage: test:
       jdk: openjdk8
       name: kumuluzee-mp12
