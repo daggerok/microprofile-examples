@@ -94,6 +94,10 @@ links:
 
 other JakartaEE / MicroProfile repositories:
 
+* [GitHub: daggerok/java-mp-hammock-example](https://github.com/daggerok/java-mp-hammock-example)
+* [GitHub: daggerok/java-mp-helidon-example](https://github.com/daggerok/java-mp-helidon-example)
+* [GitHub: daggerok/helidon-examples](https://github.com/daggerok/helidon-examples)
+* [GitHub: daggerok/helidon-mp-jpa](https://github.com/daggerok/helidon-mp-jpa)
 * [GitHub: daggerok/quarkus-reactive-pg](https://github.com/daggerok/quarkus-reactive-pg)
 * [GitHub: daggerok/java-mp-smallrye-kafka-example](https://github.com/daggerok/java-mp-smallrye-kafka-example)
 * [GitHub: daggerok/java-mp-quarkus-example](https://github.com/daggerok/java-mp-quarkus-example)
