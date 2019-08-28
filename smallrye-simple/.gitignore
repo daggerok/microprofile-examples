@@ -1,0 +1,15 @@
+.idea/*
+!.idea/runConfigurations
+!.idea/runConfigurations/**
+*.iml
+*.ipr
+*.iws
+*.log*
+.DS_Store
+.gradle/
+target/
+build/
+out/
+javacore.*.txt
+*.dmp
+*.trc

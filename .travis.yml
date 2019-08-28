@@ -1,15 +1,24 @@
+notifications:
+  email: false
+git:
+  quiet: true
+  depth: 1
+
 language: java
-jdk: openjdk8
-services:
-  - docker
-sudo: required
+python: 3
+
+service:
+- docker
+
 env:
   global:
     secure: u6Ls1bNCxh7Lc6IzPkkoZVaso7McGjEQ+9LNc4nNCB6raDwZkGiOXMq67ECc+8WUyoVdiIpgPgyzIbMy6w589NF91IkoLTlZy9Ut7HAhZo5WkqQlO2kAD1JiXMjET2ATCwOWoNQvJkMZA7sJBexxKpMxl5vTz/y2iuHkw6KlCuivnxheak5KeSp8r5vyTPI6ZJcOP+UgqWq60HOCa99l3L4vlaMOcfQ43+QBUV3cXTmow897qddM5dBMVUvfc23792HISJ3PMoOOfNG77wkSTdzXJSfe5rouW41e9gYU//Y/CwAnFvdXvK9UBaVxAMh6Ye4+kCvlyHw8kqZO47QwOqIjQ1thTQ6sgpSpzhgk9CfHR/U8uXX9Q9+xLbg2BmSEuw2whugfux4MwrviqNFLfbzKA8lFqfuj0IUzZrOlADfMimNtXdGhlmJgR2+X73mJEdaeMRMMbqaR05oX8/x4gNv6XL1cdSyO7cLrNakVO+v0+bDya9qmF37BVtVqtTumVnS7WICISg1ZLOlEv1p4RbR6MBOK3O69B9x/cvCsa2G7d3MyVVu76dhpVb+RVDOiPQx9B4UEkPvJ1/sWcpdygU4UAv64fhL+1CoFPPRyEQpy+4KbEIJRwNS6lRwsJlhGtIP6Xpm8md4Cnzo9wC4I6K8RaYYFaZdkrGqXmP4as1s=
+
 apt_packages:
   - python-pip
   - curl
   - jq
+
 install: true
 before_script:
   - sudo pip install --upgrade httpie >/dev/null
@@ -17,6 +26,23 @@ before_script:
   - stop_any 80 8001 8002 8080 5432 9080 8009 8007 8005
 jobs:
   include:
+
+    - stage: test
+      name: smallrye-simple
+      jdk: openjdk8
+      script:
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml >/dev/null
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml versions:display-property-updates
+      - java -jar $TRAVIS_BUILD_DIR/smallrye-simple/target/*-all.jar
+
+    - stage: test
+      name: smallrye-simple jdk11
+      jdk: openjdk11
+      script:
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml >/dev/null
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml versions:display-property-updates
+      - java -jar $TRAVIS_BUILD_DIR/smallrye-simple/target/*-all.jar
+
     - stage: test
       jdk: openjdk8
       name: kumuluzee-mp12
@@ -31,7 +57,7 @@ jobs:
         - http :8080/data/resilience
         - http :8080/health
         - stop_any 80 8080
-        #
+
     - stage: test
       jdk: openjdk8
       name: openliberty-maven-zip
@@ -56,7 +82,7 @@ jobs:
         - http :9080/app1/api/v1/properties | jq '.'
         - docker rm -f -v app1
         - stop_any 80
-        #
+
     - stage: test
       jdk: openjdk8
       name: openliberty-maven-jar
@@ -70,7 +96,7 @@ jobs:
         - http :9080/api/v1/props | jq '.'
         - http :9080/api/v1/properties | jq '.'
         - stop_any 80 9080
-        #
+
     - stage: test
       jdk: openjdk8
       name: penliberty-gradle-zip
@@ -83,7 +109,7 @@ jobs:
         - http :9080/app3/api/v1/hello | jq '.'
         - ./gradlew -b openliberty-gradle-zip/build.gradle libertyStop
         - stop_any 80 9080
-        #
+
     - stage: test
       jdk: openjdk8
       name: smallrye-jar
@@ -97,14 +123,14 @@ jobs:
         #
         - ./gradlew -b ./smallrye-jar/build.gradle.kts installDist
         - bash ./smallrye-jar/build/install/app4/bin/app4
-        #
+
     - stage: test
       jdk: openjdk8
       name: wildfly-swarm-mp12
       script:
         - ./mvnw -U -f ./wildfly-swarm-mp12/pom.xml >/dev/null
         - ls -lah ./wildfly-swarm-mp12/target/ | grep jar
-        #
+
     - stage: test
       jdk: openjdk8
       name: tomtribe-mp12
@@ -124,7 +150,7 @@ jobs:
         - http :8080/
         - docker rm -f -v app
         - stop_any 80
-        #
+
 cache:
   pip: true
   packages: true
