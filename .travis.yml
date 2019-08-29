@@ -35,7 +35,9 @@ jobs:
       - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-next/pom.xml versions:display-property-updates
       - java -jar $TRAVIS_BUILD_DIR/smallrye-next/target/*-all.jar &
       - wait_for 8080
-      - sleep 2s
+      - http :8080 message=hello
+      - http :8080 message=world
+      - http :8080 message=yeah
       - stop_any 80 8080
 
     - stage: test
