@@ -28,12 +28,15 @@ jobs:
   include:
 
     - stage: test
-      name: smallrye-simple
+      name: smallrye-next
       jdk: openjdk8
       script:
-      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml >/dev/null
-      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-simple/pom.xml versions:display-property-updates
-      - java -jar $TRAVIS_BUILD_DIR/smallrye-simple/target/*-all.jar
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-mext/pom.xml >/dev/null
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-next/pom.xml versions:display-property-updates
+      - java -jar $TRAVIS_BUILD_DIR/smallrye-next/target/*-all.jar &
+      - wait_for 8080
+      - sleep 2s
+      - stop_any 80 8080
 
     - stage: test
       name: smallrye-simple jdk11
