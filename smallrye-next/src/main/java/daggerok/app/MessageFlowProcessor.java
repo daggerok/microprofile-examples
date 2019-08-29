@@ -20,7 +20,7 @@ public class MessageFlowProcessor {
 
     @Incoming("processed-a")
     @Outgoing("processed-b")
-    public PublisherBuilder<String> filter(PublisherBuilder<String> input) {
+    public PublisherBuilder<String> filterToShort(PublisherBuilder<String> input) {
         return input.filter(item -> item.length() > 4);
     }
 
