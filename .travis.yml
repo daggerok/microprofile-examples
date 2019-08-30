@@ -28,10 +28,41 @@ jobs:
   include:
 
     - stage: test
+      name: quarkus-yet-another-app
+      jdk: openjdk11
+      script:
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/pom.xml clean package >/dev/null
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/pom.xml versions:display-property-updates
+      - java -jar $TRAVIS_BUILD_DIR/quarkus-yet-another-app/target/*-runner.jar &
+      - wait_for 8080
+      - http :8080
+      - stop_any 80 8080
+      #
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/pom.xml package -Pnative -Dnative-image.docker-build=true -U
+      - docker build -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/src/main/docker/Dockerfile.native -t quarkus/quarkus-example-native .
+      - docker run -i --rm --name native-app -p 8080:8080 quarkus/quarkus-example-native &
+      - wait_for 8080
+      - sleep 3s
+      - http :8080/
+      - http :8080/api/hello
+      - docker rm -f -v native-app
+      - stop_any 80 8080
+      #
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/pom.xml clean compile jar:jar quarkus:build -U
+      - docker build -f $TRAVIS_BUILD_DIR/quarkus-yet-another-app/src/main/docker/Dockerfile.jvm -t quarkus/quarkus-example-jvm .
+      - docker run -i --rm --name jvm-app -p 8080:8080 quarkus/quarkus-example-jvm &
+      - wait_for 8080
+      - sleep 5s
+      - http :8080/
+      - http :8080/api/hello
+      - docker rm -f -v jvm-app
+      - stop_any 80 8080
+
+    - stage: test
       name: smallrye-next
       jdk: openjdk8
       script:
-      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-mext/pom.xml >/dev/null
+      - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-next/pom.xml >/dev/null
       - cd $TRAVIS_BUILD_DIR && ./mvnw -f smallrye-next/pom.xml versions:display-property-updates
       - java -jar $TRAVIS_BUILD_DIR/smallrye-next/target/*-all.jar &
       - wait_for 8080
