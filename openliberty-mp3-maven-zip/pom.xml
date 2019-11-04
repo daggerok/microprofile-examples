@@ -1,0 +1,182 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>prime</groupId>
+  <artifactId>app1</artifactId>
+  <packaging>war</packaging>
+  <version>1.0-SNAPSHOT</version>
+
+  <parent>
+    <groupId>net.wasdev.wlp.maven.parent</groupId>
+    <artifactId>liberty-maven-app-parent</artifactId>
+    <version>3.0.M1</version>
+  </parent>
+
+  <properties>
+    <encoding>UTF-8</encoding>
+    <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
+
+    <java.version>1.8</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+
+    <openliberty.version>19.0.0.10</openliberty.version>
+    <!--<openliberty.version>19.0.0.3</openliberty.version>-->
+    <package.file>${project.build.directory}/${app.name}.zip</package.file>
+    <liberty-maven-plugin.version>3.0.M1</liberty-maven-plugin.version>
+    <testServerHttpsPort>9443</testServerHttpsPort>
+    <testServerHttpPort>9080</testServerHttpPort>
+    <app.name>${project.artifactId}</app.name>
+    <appArchive>${package.file}</appArchive>
+    <warContext>${app.name}</warContext>
+    <packaging.type>usr</packaging.type>
+    <!--<package.file>${project.build.directory}/${app.name}.jar</package.file>
+    <packaging.type>runnable</packaging.type>-->
+
+    <docker-maven-plugin.version>0.31.0</docker-maven-plugin.version>
+    <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+    <javax.json-api.version>1.1.4</javax.json-api.version>
+    <microprofile.version>3.1</microprofile.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.openliberty.features</groupId>
+        <artifactId>features-bom</artifactId>
+        <version>${openliberty.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.eclipse.microprofile</groupId>
+      <artifactId>microprofile</artifactId>
+      <version>${microprofile.version}</version>
+      <scope>provided</scope>
+      <type>pom</type>
+    </dependency>
+
+    <dependency>
+      <groupId>io.openliberty.features</groupId>
+      <artifactId>jaxrs-2.1</artifactId>
+      <scope>provided</scope>
+      <type>esa</type>
+    </dependency>
+    <dependency>
+      <groupId>io.openliberty.features</groupId>
+      <artifactId>jsonp-1.1</artifactId>
+      <scope>provided</scope>
+      <type>esa</type>
+    </dependency>
+    <dependency>
+      <groupId>io.openliberty.features</groupId>
+      <artifactId>cdi-1.2</artifactId>
+      <scope>provided</scope>
+      <type>esa</type>
+    </dependency>
+    <dependency>
+      <groupId>javax.json</groupId>
+      <artifactId>javax.json-api</artifactId>
+      <version>${javax.json-api.version}</version>
+    </dependency>
+
+    <!-- java 9+
+    <dependency>
+      <groupId>javax.xml.bind</groupId>
+      <artifactId>jaxb-api</artifactId>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-core</artifactId>
+      <version>2.3.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.xml.bind</groupId>
+      <artifactId>jaxb-impl</artifactId>
+      <version>2.3.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.activation</groupId>
+      <artifactId>activation</artifactId>
+      <version>1.1.1</version>
+    </dependency>
+    -->
+  </dependencies>
+
+  <build>
+    <defaultGoal>package docker:build</defaultGoal>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>net.wasdev.wlp.maven.plugins</groupId>
+        <artifactId>liberty-maven-plugin</artifactId>
+        <version>${liberty-maven-plugin.version}</version>
+        <configuration>
+          <assemblyArtifact>
+            <groupId>io.openliberty</groupId>
+            <artifactId>openliberty-runtime</artifactId>
+            <version>${openliberty.version}</version>
+            <type>zip</type>
+          </assemblyArtifact>
+          <serverName>${project.artifactId}Server</serverName>
+          <configFile>src/main/liberty/config/server.xml</configFile>
+          <include>${packaging.type}</include>
+          <!--<packageFile>${package.file}</packageFile>
+          <bootstrapProperties>
+            <default.http.port>${testServerHttpPort}</default.http.port>
+            <default.https.port>${testServerHttpsPort}</default.https.port>
+            <app.context.root>${warContext}</app.context.root>
+          </bootstrapProperties>-->
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>${maven-war-plugin.version}</version>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+          <packagingExcludes>pom.xml</packagingExcludes>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>io.fabric8</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>${docker-maven-plugin.version}</version>
+        <configuration>
+          <imagePullPolicy>IfNotPresent</imagePullPolicy>
+          <images>
+            <image>
+              <name>daggerok/${project.artifactId}:${project.version}</name>
+              <alias>openliberty-mp3-maven-zip</alias>
+              <run>
+                <imagePullPolicy>Never</imagePullPolicy>
+                <ports>
+                  <port>80:9080</port>
+                </ports>
+                <wait>
+                  <http>
+                    <url>http://127.0.0.1:80/${project.artifactId}/api/v1/os.name</url>
+                    <method>GET</method>
+                    <status>200</status>
+                  </http>
+                  <time>60000</time>
+                  <shutdown>500</shutdown>
+                </wait>
+              </run>
+            </image>
+          </images>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

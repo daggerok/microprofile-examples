@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="OpenLiberty App">
+    <featureManager>
+        <feature>jaxrs-2.0</feature>
+        <feature>jsonp-1.0</feature>
+        <feature>cdi-1.2</feature>
+    </featureManager>
+    
+    <httpEndpoint httpPort="9080"
+                  httpsPort="9443"
+                  id="defaultHttpEndpoint" />
+    
+    <webApplication id="app1"
+                    location="app1.war"
+                    name="app1"/>
+</server>
