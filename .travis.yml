@@ -4,20 +4,46 @@ git:
   quiet: true
   depth: false
 language: java
-python: 3
 service:
 - docker
 env:
   global:
     secure: u6Ls1bNCxh7Lc6IzPkkoZVaso7McGjEQ+9LNc4nNCB6raDwZkGiOXMq67ECc+8WUyoVdiIpgPgyzIbMy6w589NF91IkoLTlZy9Ut7HAhZo5WkqQlO2kAD1JiXMjET2ATCwOWoNQvJkMZA7sJBexxKpMxl5vTz/y2iuHkw6KlCuivnxheak5KeSp8r5vyTPI6ZJcOP+UgqWq60HOCa99l3L4vlaMOcfQ43+QBUV3cXTmow897qddM5dBMVUvfc23792HISJ3PMoOOfNG77wkSTdzXJSfe5rouW41e9gYU//Y/CwAnFvdXvK9UBaVxAMh6Ye4+kCvlyHw8kqZO47QwOqIjQ1thTQ6sgpSpzhgk9CfHR/U8uXX9Q9+xLbg2BmSEuw2whugfux4MwrviqNFLfbzKA8lFqfuj0IUzZrOlADfMimNtXdGhlmJgR2+X73mJEdaeMRMMbqaR05oX8/x4gNv6XL1cdSyO7cLrNakVO+v0+bDya9qmF37BVtVqtTumVnS7WICISg1ZLOlEv1p4RbR6MBOK3O69B9x/cvCsa2G7d3MyVVu76dhpVb+RVDOiPQx9B4UEkPvJ1/sWcpdygU4UAv64fhL+1CoFPPRyEQpy+4KbEIJRwNS6lRwsJlhGtIP6Xpm8md4Cnzo9wC4I6K8RaYYFaZdkrGqXmP4as1s=
-apt_packages:
-  - python-pip
-  - curl
-  - jq
+python: 3.7
+matrix:
+  include:
+    - python: 3.7
+services: docker
+addons:
+  apt:
+    update: true
+    packages:
+      - docker-ce
+      - python3-setuptools
+      - python3-pip
+      #- sudo
+      #- lsof
+      #- curl
+      - jq
 install: true
-before_script:
-  - sudo pip install --upgrade httpie >/dev/null
-  - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
+before_install:
+  - |
+    if [ ! -f ${HOME}/.local/daggerok/bash-functions/master/main.bash ] ; then
+      mkdir -p ${HOME}/.local/daggerok/bash-functions/master ;
+      curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash > ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+    fi
+    source ${HOME}/.local/daggerok/bash-functions/master/main.bash ;
+  - stop_any 80 5432 8080 8081 8082 8083 8084 8085 8086 8087 8088
+  #
+  - export PATH=$HOME/.local/bin:$PATH
+  - docker-compose version
+  - pip -V
+  - pip3 install --user --upgrade pip
+  - pip install --user --upgrade docker-compose httpie
+  - http --version --debug
+  - docker-compose version
+  - pip -V
+  #
   - stop_any 80 8001 8002 8080 5432 9080 8009 8007 8005
 jobs:
   include:
@@ -59,29 +85,33 @@ jobs:
         - stop_any 80 8080
     #
     - stage: test
-      jdk: openjdk8
+      jdk: openjdk11
       name: openliberty-maven-zip
       script:
         - ./mvnw -U -f openliberty-maven-zip/ package
         - ./mvnw -U -f openliberty-maven-zip/ liberty:start
         - wait_for 9080
         - http :9080/app1/
-        - http :9080/app1/api/v1/ | jq
-        - http :9080/app1/api/v1/props | jq
-        - http :9080/app1/api/v1/properties | jq
+        - http :9080/app1/api/v1/ | jq "."
+        - http :9080/app1/api/v1/props | jq "."
+        - http :/app1/api/v1/name | jq "."
+        - http :/app1/api/v1/os | jq "."
         - ./mvnw -U -f openliberty-maven-zip/ liberty:stop liberty:clean-server
         - stop_any 80 9080
-        #
+    #
+    - stage: test
+      jdk: openjdk8
+      name: openliberty-maven-zip in docker
+      script:
         - ./mvnw -U -f openliberty-maven-zip/pom.xml clean package
         - docker build -t openliberty-maven-zip -f openliberty-maven-zip/Dockerfile openliberty-maven-zip
         - docker run -d --name app1 --rm -p 80:9080 -p 443:9443 openliberty-maven-zip
         - wait_healthy_docker_containers 1
-        - sleep 15s
         - http :/app1/
-        - http :/app1/api/v1/ | jq
-        - http :/app1/api/v1/props | jq
-        - http :/app1/api/v1/name | jq
-        - http :/app1/api/v1/os | jq
+        - http :/app1/api/v1/ | jq "."
+        - http :/app1/api/v1/props | jq "."
+        - http :/app1/api/v1/name | jq "."
+        - http :/app1/api/v1/os | jq "."
         - docker rm -f -v app1
         - stop_any 80
     #
@@ -157,6 +187,7 @@ cache:
   pip: true
   packages: true
   directories:
+    - ~/.local/daggerok
     - ~/.docker
     - ~/.gradle
     - ~/.m2
