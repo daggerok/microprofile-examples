@@ -42,7 +42,9 @@ public class SystemPropertiesResource {
   public JsonObject path(@PathParam("path") final String path) {
     log.info("path: " + path);
     JsonObjectBuilder builder = Json.createObjectBuilder();
-    System.getProperties().forEach((key, value) -> builder.add((String) key, (String) value));
+    System.getProperties().stringPropertyNames().stream()
+          .filter(prop -> prop.trim().toLowerCase().contains(path.trim().toLowerCase()))
+          .forEach(prop -> builder.add(prop, System.getProperty(prop)));
     return builder.build();
   }
 }

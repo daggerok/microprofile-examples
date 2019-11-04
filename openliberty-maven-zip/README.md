@@ -1,5 +1,16 @@
 # OpenLiberty MicroProfile
 
+```bash
+./mvnw -U -f openliberty-maven-zip/ clean package
+
+docker build -t openliberty-maven-zip -f openliberty-maven-zip/Dockerfile openliberty-maven-zip
+docker run -d --name app1 --rm -p 9080:9080 -p 9443:9443 openliberty-maven-zip
+
+http :9080/app1/api/v1/
+
+docker rm -f -v app1
+```
+
 * https://openliberty.io/guides/rest-intro.html
 
 * https://openliberty.io/guides/cdi-intro.html
