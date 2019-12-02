@@ -106,6 +106,7 @@ other JakartaEE / MicroProfile repositories:
 * [GitHub: daggerok/java-mp-openliberty-gradle-example](https://github.com/daggerok/java-mp-openliberty-gradle-example)
 * [GitHub: daggerok/meecrowave-example](https://github.com/daggerok/meecrowave-example)
 * [GitHub: daggerok/java-ee-microservices](https://github.com/daggerok/java-ee-microservices)
+* [GitHub: daggerok/daggerok/kotlin-payara-micro-profile](link:https://github.com/daggerok/kotlin-payara-micro-profile)
 * [GitHub: daggerok/payara-micro-gradle-plugin-build-script](https://github.com/daggerok/payara-micro-gradle-plugin-build-script)
 * [GitHub: daggerok/payara-micro-gradle-no-plugin](https://github.com/daggerok/payara-micro-gradle-no-plugin)
 * [GitHub: daggerok/payara-micro-example](https://github.com/daggerok/payara-micro-example)
