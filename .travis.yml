@@ -10,9 +10,6 @@ env:
   global:
     secure: u6Ls1bNCxh7Lc6IzPkkoZVaso7McGjEQ+9LNc4nNCB6raDwZkGiOXMq67ECc+8WUyoVdiIpgPgyzIbMy6w589NF91IkoLTlZy9Ut7HAhZo5WkqQlO2kAD1JiXMjET2ATCwOWoNQvJkMZA7sJBexxKpMxl5vTz/y2iuHkw6KlCuivnxheak5KeSp8r5vyTPI6ZJcOP+UgqWq60HOCa99l3L4vlaMOcfQ43+QBUV3cXTmow897qddM5dBMVUvfc23792HISJ3PMoOOfNG77wkSTdzXJSfe5rouW41e9gYU//Y/CwAnFvdXvK9UBaVxAMh6Ye4+kCvlyHw8kqZO47QwOqIjQ1thTQ6sgpSpzhgk9CfHR/U8uXX9Q9+xLbg2BmSEuw2whugfux4MwrviqNFLfbzKA8lFqfuj0IUzZrOlADfMimNtXdGhlmJgR2+X73mJEdaeMRMMbqaR05oX8/x4gNv6XL1cdSyO7cLrNakVO+v0+bDya9qmF37BVtVqtTumVnS7WICISg1ZLOlEv1p4RbR6MBOK3O69B9x/cvCsa2G7d3MyVVu76dhpVb+RVDOiPQx9B4UEkPvJ1/sWcpdygU4UAv64fhL+1CoFPPRyEQpy+4KbEIJRwNS6lRwsJlhGtIP6Xpm8md4Cnzo9wC4I6K8RaYYFaZdkrGqXmP4as1s=
 python: 3.7
-matrix:
-  include:
-    - python: 3.7
 services: docker
 addons:
   apt:
